@@ -6,7 +6,13 @@ body {
     font-family: 'Jost', sans-serif;
 }
 
+h1,h2,h3,h4,h5,h6,p:hover {
+    cursor: default;
+}
+
+
 .head_container {
+    background-color: rgb(20,20,20);
     padding: 0 10px;
     display: flex;
     flex-direction: row;
@@ -18,18 +24,16 @@ body {
 
 .welcome {
     margin-top: -100px;
-    height: 600px;
-    background-image: url(https://i.postimg.cc/Jhx5ZvXj/i-1.webp);
+    padding-top: 100px;
+    align-items: center;
+    background-image: url(https://i.postimg.cc/tCPfQ12z/image.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
 
-.games {
-  background-color: #259073;
-}
-
 .main_container {
+    height: 500px;
     padding: 0 10px;
     display: flex;
     flex-direction: column;
@@ -48,9 +52,10 @@ body {
 }
 
 .header_img:hover{
+    cursor: pointer;
     scale: 1.2;
-    margin-right: 20px;
-    margin-left: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .header_btns {
@@ -59,6 +64,18 @@ body {
     gap: 20px;
     display: flex;
     list-style: none;
+}
+
+#header_text {
+    cursor: default;
+    transition: all .1s;
+    border-left: 0px solid #259073;
+    padding-left: 0px;
+}
+
+#header_text:hover {
+    border-left: 5px solid #259073;
+    padding-left: 10px;
 }
 
 .h_cotainer {
@@ -77,4 +94,113 @@ a {
 h1 {
     padding: 0;
     margin: 0;
+}
+
+.SimpleBtn {
+    color: antiquewhite;
+    transition: all .2s;
+}
+
+.SimpleBtn:hover {
+    color: #259073;
+    text-shadow: 0px 0px 20px #259073;
+}
+
+.MainHeading {
+    font-size: 30px;
+}
+
+.card_games {
+    box-shadow: 0px 0px 60px rgb(10,10,10);
+    background-color: rgb(20,20,20);
+}
+
+.card_devs {
+    align-items: center;
+    background-image: url(https://i.postimg.cc/RVQqW9Nj/image.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.footer {
+    height: 250px;
+    background-color: rgb(20,20,20);
+    padding: 0 10px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    margin-left: auto;
+    justify-content: space-around;
+    margin-right: auto;
+    color: antiquewhite;
+}
+
+.footer div{
+    border-top: 0px solid #259073;
+    transition: all .1s;
+    width: 300px;
+}
+
+.footer div:hover{
+    border-top: 5px solid #259073;
+}
+
+.under_footer {
+    height: 100px;
+    background-color: rgb(20,20,20);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: antiquewhite;
+}
+
+/* Контейнер слайдера */
+.slider {
+    position: relative;
+}
+
+/* Контейнер, в котором будут находиться все слайды */
+.slides {
+    text-align: center;
+    display: flex; /* Располагаем слайды в ряд */
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+/* Каждый отдельный слайд */
+.slide {
+    max-width: 300px;
+    color: antiquewhite;
+    margin: 10px 10px;
+    flex-shrink: 0; /* Запрещаем уменьшение элементов внутри flex-контейнера */
+}
+
+/* Убираем отображение радиокнопок, они нужны только для управления */
+input[type="radio"] {
+    display: none;
+}
+
+
+/* Контейнер для точек управления (индикаторов) */
+.controls {
+    text-align: center; /* Размещаем точки по центру */
+    margin-top: 10px; /* Добавляем отступ сверху */
+}
+
+/* Стиль для точек переключения */
+.controls label {
+    display: inline-block; /* Размещаем точки в строку */
+    width: 15px; /* Размер точки */
+    height: 15px;
+    background: gray; /* Серый цвет точки */
+    border-radius: 50%; /* Делаем точки круглыми */
+    margin: 5px; /* Добавляем небольшой отступ между ними */
+    cursor: pointer; /* Делаем курсор в виде руки при наведении */
+}
+
+/* Меняем цвет активной точки при выборе слайда */
+input:checked + label {
+    border: 1px solid black;
 }

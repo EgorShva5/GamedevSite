@@ -1,8 +1,7 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+import placeholderBurger from './assets/placeholder-burger.jpg'
+import neckhurts from './assets/neckhurts.png'
 import './App.css'
-import axios from "axios";
 
 function App() {
   return (
@@ -54,7 +53,7 @@ function Welcome() {
             <div id ='header_text' style={{marginRight:"auto",marginTop:"auto",marginBottom:"auto",alignItems:"center",maxWidth:60+"%"}}>
                 <h1 className="MainHeading" style={{color: "antiquewhite"}}>Подземная сеть геймдева</h1>
                 <h1 style={{color: "antiquewhite"}}>Сообщество независимых разработчиков игр из СНГ.</h1>
-                <p style={{color: "antiquewhite"}}>Мы - независимые разработчики из России, Беларуси, Казахстана, Украины и других стран бывшего Советского Союза. Среди нас уже больше 5 различных студий, создающих игры для вас! В творениях участников сообщества представлены игры различных жанров - от приключений до vampyrelike.</p>
+                <p style={{color: "antiquewhite"}}>Мы - независимые разработчики из России, Беларуси, Казахстана, Украины и других стран бывшего Советского Союза. Среди нас уже больше 5 различных студий, создающих игры для вас! В творениях участников сообщества представлены игры различных жанров - от приключений до vampirelike.</p>
             </div>
         </div>
     </section>
@@ -76,22 +75,18 @@ function Games() {
           
               
               <div className="slides">
-                  <div className="slide"><img src="static/burgplace.png" width ='300'/><h1>Devastablance. Mountain Brotherhood</h1></div>
-                  <div className="slide"><img src="static/burgplace.png" width="300"/></div>
-                  <div className="slide"><img src="static/burgplace.png" width="300"/></div>
-                  <div className="slide"><img src="static/burgplace.png" width="300"/></div>
-                  <div className="slide"><img src="static/burgplace.png" width="300"/></div>
-                  <div className="slide"><img src="static/burgplace.png" width="300"/></div>
-                  <div className="slide"><img src="static/burgplace.png" width="300"/></div>
-                  <div className="slide"><img src="static/burgplace.png" width="300"/></div>
-                  <div className="slide"><img src="static/burgplace.png" width="300"/></div>
+                  <div className="slide"><img src={placeholderBurger} width='300'/><h1>Devastablance. Mountain Brotherhood</h1></div>
+                  <div className="slide"><a href='https://www.youtube.com/watch?v=Hr5xdIWHljA' target='_blank'><img src={neckhurts} width="300"/></a><h1>NECKHURTS</h1></div>
+                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
+                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
+                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
+                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
+                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
+                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
+                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
               </div>
               
-              <div className="controls">
-                  <label for="slide1"></label>
-                  <label for="slide2"></label>
-                  <label for="slide3"></label>
-              </div>
+            <Controls />
             </div>
         </div>
       </section>
@@ -142,22 +137,37 @@ function Footer() {
   )
 }
 
-({/*function Btn() {
+function Controls() {
+  const [currentNum, setCurrentNum] = useState(1);
+  const perMove = 3;
+
+  useEffect(() => {
+    const blocks = document.querySelectorAll('.slide');
+    
+    function hideAllGames() {
+      blocks.forEach(element => { 
+        element.style.display = 'none';
+      });
+    }
+
+    function showCurrentGames() {
+      hideAllGames();
+      
+      Array.from(blocks).slice((currentNum - 1) * perMove, (currentNum - 1) * perMove + perMove ).forEach(element => {
+        element.style.display = 'block';
+      });
+    }
+
+    showCurrentGames();
+  }, [currentNum]);
+
   return (
-      <button onClick={sendRequest}>Кнопка</button>
-  )
-}*/})
-
-async function sendRequest() {
-  axios.get('http://localhost:8000')
-  .then(resp => {
-      console.log(resp.data);
-  })
-  .catch(error => {
-      console.error('блин', error);
-  });
+    <div className="controls">
+      <label htmlFor="slide1" onClick={() => setCurrentNum(1)}></label>
+      <label htmlFor="slide2" onClick={() => setCurrentNum(2)}></label>
+      <label htmlFor="slide3" onClick={() => setCurrentNum(3)}></label>
+    </div>
+  );
 }
-
-
 
 export default App

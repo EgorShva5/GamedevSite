@@ -1,13 +1,14 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 
+# uvicorn Main:app --reload --host 0.0.0.0 --port 8000
 app = FastAPI()
 
-origins = ['http://localhost:5173', 'http://192.168.52.1:5173']
+IPs   : list[str] = ['localhost', '192.168.52.1', '192.168.100.22']
+Port  : int       = 5173
+Secure: bool      = False
 
+origins = [f'{'https' if Secure else 'http'}://{i}:{Port}' for i in IPs]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -16,8 +17,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-#                                   python -m uvicorn Main:app --reload
-
-@app.get("/")
-async def root(request: Request):
-    return {'message':'ghgh'}
+@app.get('/')
+async def root(req: Request):
+    return {'message':'hello from backend!'}

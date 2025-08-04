@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import placeholderBurger from './assets/placeholder-burger.jpg'
 import neckhurts from './assets/neckhurts.png'
+import icon from '/icon.png'
 import './App.css'
 
 function App() {
@@ -19,7 +20,7 @@ function Header() {
     <header>
       <div className = 'head_container'>
           <div className="h_cotainer">
-              <img className="header_img" src = 'https://i.postimg.cc/nzV4mFTY/icon12.png' alt ='Лего' />
+              <img className="header_img" src={icon} alt='Лего' />
               <h1 className="title_text">| Подземная сеть геймдева</h1>
           </div>
           <div>
@@ -75,15 +76,15 @@ function Games() {
           
               
               <div className="slides">
-                  <div className="slide"><img src={placeholderBurger} width='300'/><h1>Devastablance. Mountain Brotherhood</h1></div>
-                  <div className="slide"><a href='https://www.youtube.com/watch?v=Hr5xdIWHljA' target='_blank'><img src={neckhurts} width="300"/></a><h1>NECKHURTS</h1></div>
-                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
-                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
-                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
-                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
-                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
-                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
-                  <div className="slide"><img src={placeholderBurger} width="300"/></div>
+                  <div className="slide"><img src={placeholderBurger}/><h1>Devastablance. Mountain Brotherhood</h1></div>
+                  <div className="slide"><a href='https://www.youtube.com/watch?v=Hr5xdIWHljA' target='_blank'><img src={neckhurts}/></a><h1>NECKHURTS</h1></div>
+                  <div className="slide"><img src={placeholderBurger}/></div>
+                  <div className="slide"><img src={placeholderBurger}/></div>
+                  <div className="slide"><img src={placeholderBurger}/></div>
+                  <div className="slide"><img src={placeholderBurger}/></div>
+                  <div className="slide"><img src={placeholderBurger}/></div>
+                  <div className="slide"><img src={placeholderBurger}/></div>
+                  <div className="slide"><img src={placeholderBurger}/></div>
               </div>
               
             <Controls />
@@ -141,24 +142,22 @@ function Controls() {
   const [currentNum, setCurrentNum] = useState(1);
   const perMove = 3;
 
+  function hideAllGames(blocks) {
+    blocks.forEach(element => { 
+      element.style.display = 'none';
+    });
+  }
+  function showCurrentGames(blocks) {
+    hideAllGames(blocks);
+    
+    Array.from(blocks).slice((currentNum - 1) * perMove, (currentNum - 1) * perMove + perMove ).forEach(element => {
+      element.style.display = 'block';
+    });
+  }
+
   useEffect(() => {
     const blocks = document.querySelectorAll('.slide');
-    
-    function hideAllGames() {
-      blocks.forEach(element => { 
-        element.style.display = 'none';
-      });
-    }
-
-    function showCurrentGames() {
-      hideAllGames();
-      
-      Array.from(blocks).slice((currentNum - 1) * perMove, (currentNum - 1) * perMove + perMove ).forEach(element => {
-        element.style.display = 'block';
-      });
-    }
-
-    showCurrentGames();
+    showCurrentGames(blocks);
   }, [currentNum]);
 
   return (

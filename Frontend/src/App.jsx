@@ -140,7 +140,7 @@ function Controls() {
   let btns = []
   
   for (let i=1; i <= 3; i++) {
-    btns.push(<button id = {`slider${i}`} type='button' onClick={() => setCurrentNum(i)}>{i}</button>)
+    btns.push(<button className='btns_slider' id = {`slider${i}`} type='button' onClick={() => setCurrentNum(i)}>{i}</button>)
   }
 
   function hideAllGames(blocks) {
@@ -156,9 +156,9 @@ function Controls() {
     });
   }
 
-  function BtnsDisable() {
-    btns.forEach((btn) => btn.props['disabled'] = true)
-  }
+  //function BtnsDisable() {
+  //  btns.forEach((btn) => btn.className = 'cn')
+  //}
 
   function FadeOut(box_opacity, game_box) {
     box_opacity = 1.0
@@ -167,7 +167,7 @@ function Controls() {
       if (!game_box) console.error('Не существует')
       if (box_opacity <= 0) {
         clearInterval(timer);
-        BtnsDisable()
+    //    BtnsDisable()
       } 
       else {
         box_opacity -= 0.02

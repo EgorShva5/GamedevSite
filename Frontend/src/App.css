@@ -163,6 +163,7 @@ h1 {
 
 /* Контейнер, в котором будут находиться все слайды */
 .slides {
+    opacity: 1.0;
     text-align: center;
     display: flex; /* Располагаем слайды в ряд */
     flex-wrap: wrap;

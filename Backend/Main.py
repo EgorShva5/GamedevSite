@@ -8,7 +8,7 @@ IPs   : list[str] = ['localhost', '192.168.52.1', '192.168.100.22']
 Port  : int       = 5173
 Secure: bool      = False
 
-origins = [f'{'https' if Secure else 'http'}://{i}:{Port}' for i in IPs]
+origins = [f"{'https' if Secure else 'http'}://{i}:{Port}" for i in IPs]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

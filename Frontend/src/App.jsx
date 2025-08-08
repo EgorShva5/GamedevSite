@@ -69,13 +69,7 @@ function Games() {
             <br/>
             <h1 style={{color: "antiquewhite"}} className="MainHeading">Лучшие игры:</h1>
             <div id ='Games' className="slider">
-
-              <input type="radio" name="slider" id="slide1" checked /> 
-              <input type="radio" name="slider" id="slide2"/>
-              <input type="radio" name="slider" id="slide3"/>
-          
-              
-              <div className="slides">
+              <div id ='game_box' className="slides">
                   <div className="slide"><img src={placeholderBurger}/><h1>Devastablance. Mountain Brotherhood</h1></div>
                   <div className="slide"><a href='https://www.youtube.com/watch?v=Hr5xdIWHljA' target='_blank'><img src={neckhurts}/></a><h1>NECKHURTS</h1></div>
                   <div className="slide"><img src={placeholderBurger}/></div>
@@ -141,6 +135,13 @@ function Footer() {
 function Controls() {
   const [currentNum, setCurrentNum] = useState(1);
   const perMove = 3;
+  const maxPages = 3
+
+  let btns = []
+  
+  for (let i=1; i <= 3; i++) {
+    btns.push(<button id = {`slider${i}`} type='button' onClick={() => setCurrentNum(i)}>{i}</button>)
+  }
 
   function hideAllGames(blocks) {
     blocks.forEach(element => { 
@@ -155,16 +156,57 @@ function Controls() {
     });
   }
 
+  function BtnsDisable() {
+    btns.forEach((btn) => btn.props['disabled'] = true)
+  }
+
+  function FadeOut(box_opacity, game_box) {
+    box_opacity = 1.0
+
+    let timer = setInterval(function() {
+      if (!game_box) console.error('Не существует')
+      if (box_opacity <= 0) {
+        clearInterval(timer);
+        BtnsDisable()
+      } 
+      else {
+        box_opacity -= 0.02
+        game_box.style.opacity = box_opacity
+      }
+    }, 20);
+  }
+
+  function FadeIn(box_opacity, game_box) {
+    box_opacity = 0.0
+
+    let timer = setInterval(function() {
+      if (!game_box) console.error('Не существует')
+      if (box_opacity >= 1) {
+        clearInterval(timer);
+      } 
+      else {
+        box_opacity += 0.02
+        game_box.style.opacity = box_opacity
+      }
+    }, 20);
+  }
+
   useEffect(() => {
+    const game_box = document.getElementById('game_box')
+    let box_opacity = game_box.style.opacity 
+
+    FadeOut(box_opacity, game_box)
+
     const blocks = document.querySelectorAll('.slide');
     showCurrentGames(blocks);
+    
+    FadeIn(box_opacity, game_box)
+    
   }, [currentNum]);
 
   return (
     <div className="controls">
-      <label htmlFor="slide1" onClick={() => setCurrentNum(1)}></label>
-      <label htmlFor="slide2" onClick={() => setCurrentNum(2)}></label>
-      <label htmlFor="slide3" onClick={() => setCurrentNum(3)}></label>
+      {btns}
     </div>
   );
 }

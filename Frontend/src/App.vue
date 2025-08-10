@@ -1,11 +1,13 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, Transition } from 'vue'
 
   import CardController from './components/CardController.vue'
 
   import placeholderBurger from './assets/placeholder-burger.jpg'
   import neckhurts from './assets/neckhurts.png'
   import icon from '/icon.png'
+
+  const show = ref(true)
 
   const slidesGlobal = ref([
   { img: placeholderBurger, title: "Devastablance. Mountain Brotherhood", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
@@ -43,7 +45,7 @@
 
   <main>
     <section class="welcome">
-        <div style='align-items: center' class="main_container">
+        <div class="main_container">
             <div id ='header_text'>
                 <h1 class="MainHeading" style='color: antiquewhite'>Подземная сеть геймдева</h1>
                 <h1 style='color: antiquewhite'>Сообщество независимых разработчиков игр из СНГ.</h1>
@@ -53,9 +55,11 @@
     </section>
 
     <section class='card_games'>
-      <div class='main_container'>
-          <br/>
-          <h1 style='color: antiquewhite' class="MainHeading">Лучшие игры:</h1>
+      <br/>
+      <h1 style='color: antiquewhite; text-align: center;' class="MainHeading">Лучшие игры:</h1>
+
+      <Transition  name = 'fade'>
+      <div v-if="show" class='slider_container'>
           <div id ='Games' class="slider">           
               <div id ='game_box' class="slides">
                 <template v-for='slide in slidesGlobal'>
@@ -69,13 +73,14 @@
               </div>
           </div>
       </div>
+    </Transition>
 
-    <CardController :all-slides='slidesGlobal' @update-slides="updatedSlides => slidesGlobal = updatedSlides"/>
+    <CardController :show = 'show' :all-slides='slidesGlobal' @update-slides="updatedSlides => slidesGlobal = updatedSlides" @update-show="updatedShow => show = updatedShow"/>
 
     </section>
 
     <section class = 'card_devs'>
-      <div class = 'main_container'>
+      <div class = 'slider_container'>
           <br />
           <h1 style='color: antiquewhite' class="MainHeading">Лучшие разработчики:</h1>
       </div>
@@ -163,6 +168,23 @@
 
   .main_container {
       min-height: 500px;
+      height: auto;
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      max-width: 80%;
+      justify-content: center;
+      margin-right: auto;  
+      margin-left: auto;
+  }
+
+  #header_text {
+    width: 80%;
+    margin-right: auto;
+  }
+
+  .slider_container {
+      min-height: 33vh;
       height: auto;
       padding: 0 10px;
       display: flex;
@@ -286,6 +308,6 @@
 
   .fade-enter-from,
   .fade-leave-to {
-    opacity: 0;
+    opacity: 0.0;
   }
 </style>

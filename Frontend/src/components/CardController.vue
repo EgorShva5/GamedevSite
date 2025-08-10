@@ -6,6 +6,11 @@
       type: Array,
       required: true,
       default: () => []
+    },
+    show: {
+      type: Boolean,
+      required: true,
+      default: () => true
     }
   })
 
@@ -18,14 +23,23 @@
     const updatedSlides = props.allSlides.map((slide, index) => {
       const first = (page - 1) * PER_PAGE
       const last = first + PER_PAGE
-
+      
       return {
         ...slide,
         isHidden: !(index >= first && index < last)
       }
     })
 
+    let updatedShow = !props.show
+
     emit('update-slides', updatedSlides)
+    emit('update-show', updatedShow)
+
+    setTimeout(()=>{
+      updatedShow = !updatedShow
+
+      emit('update-show', updatedShow)
+    }, 140)
   }
 
   onMounted(() => {

@@ -6,13 +6,19 @@
   import placeholderBurger from './assets/placeholder-burger.jpg'
   import neckhurts from './assets/neckhurts.png'
   import icon from '/icon.png'
+  import shvIco from './assets/GoogPlayIco.jpg'
+  import rietlyIcn from './assets/rietly.png'
+  import goldhide from './assets/GH.jpg'
+  import badFantasy from './assets/nems82.png'
+  import brightMystery from './assets/DpvPIO.png'
 
   const show = ref(true)
+  const show_two = ref(true)
 
   const slidesGlobal = ref([
   { img: placeholderBurger, title: "Devastablance. Mountain Brotherhood", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
-  { img: neckhurts, title: "NECKHURTS", link: "https://www.youtube.com/watch?v=Hr5xdIWHljA", isHidden: true},
-  { img: placeholderBurger, title: "", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
+  { img: brightMystery, title: "Bright Mystery", link: "https://www.youtube.com/watch?v=Hr5xdIWHljA", isHidden: true},
+  { img: badFantasy, title: "BAD Fantasy", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
   { img: placeholderBurger, title: "", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
   { img: placeholderBurger, title: "", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
   { img: placeholderBurger, title: "", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
@@ -22,6 +28,20 @@
   { img: icon, title: "", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
   { img: placeholderBurger, title: "", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
 ]) // 11 for now
+
+  const authorGlobal = ref([
+    { img: shvIco, title: "Shvap", link: "https://google.com", isHidden: true},
+    { img: rietlyIcn, title: "Rietly", link: "https://google.com", isHidden: true},
+    { img: goldhide, title: "GoldHide games", link: "https://google.com", isHidden: true},
+    { img: neckhurts, title: "NECKHURTS", link: "https://google.com", isHidden: true},
+    { img: placeholderBurger, title: "Mr. burger", link: "https://google.com", isHidden: true},
+    { img: placeholderBurger, title: "Mr. burger", link: "https://google.com", isHidden: true},
+    { img: placeholderBurger, title: "Mr. burger", link: "https://google.com", isHidden: true},
+    { img: placeholderBurger, title: "Mr. burger", link: "https://google.com", isHidden: true},
+    { img: placeholderBurger, title: "Mr. burger", link: "https://google.com", isHidden: true},
+    { img: placeholderBurger, title: "Mr. burger", link: "https://google.com", isHidden: true}
+  ])
+
 </script>
 
 <template>
@@ -82,33 +102,57 @@
     <section class = 'card_devs'>
       <div class = 'slider_container'>
           <br />
-          <h1 style='color: antiquewhite' class="MainHeading">Лучшие разработчики:</h1>
+          <h1 style='color: antiquewhite; text-align: center;' class="MainHeading">Лучшие разработчики:</h1>
+          <Transition name = 'fade_a'>
+          <div v-if="show_two" class="dev_group">
+            <div class="devs">
+                <template v-for="author in authorGlobal">
+                  <div class='dev' v-if='!author.isHidden'>
+                    <a :href='author.link' target='_blank'>
+                      <img :src="author.img" alt="Картинка">
+                    </a>
+                    <h1>{{ author.title }}</h1>
+                  </div>
+                </template>
+              <!---placeholderBurger-->
+            </div>
+          </div>
+          </Transition>
+      </div>
+      <CardController :show_two= 'show' :all-slides='authorGlobal' @update-slides="updatedSlides => authorGlobal = updatedSlides" @update-show="updatedShow => show_two = updatedShow"/>
+    </section>
+
+    <section class = 'FinalMessage'>
+      <div class = 'final_container'>
+        <h1 class="MainHeading">На этом пока всё. Что же дальше?</h1>
+        <p>В <a style="font-size: 25px;" class="SimpleBtn" href="https://google.com">этой статье</a> мы рассказали, что можно делать на сайте различным группам пользователей. Мы уверенны, она поможет вам освоиться здесь! <br>--- --- ---</p>
+        <h3>Вступайте в наше дружное Discord-сообщество!</h3>
+        <p>Здесь вы можете найти множество интересных проектов, посмотреть на блоги участников инициативы и завести множество друзей! <a style="font-size: 25px;" class="SimpleBtn" href="https://google.com" target="_blank"> Тебе стоит лишь нажать на эту ссылку.</a> Ждём тебя!</p>
       </div>
     </section>
 
-
-    <footer>
-      <div class= 'footer'>
-        <div>
-            <p>Связаться с нами:</p>
-            <p>Email: shvarev.egor.a@yandex.ru</p>
-            <p>Tg: @ShvarevEgor</p>
-            <p>Discord: @hfghfh</p>
-            <p>VK: Шварёв Егор</p>
-        </div>
-        <div>
-            <p>Связанное с проектом:</p>
-            <p>Код на GitHub</p>
-            <p>Сообщество Discord</p>
-            <p>Сообщество Shvap Games</p>
-            <p>Официальный сайт Shvap</p>
-        </div>
-        <div>
-            <p>Правила:</p>
-            <p>Правила использования</p>
-            <p>Политика конфиденциальности</p>
-        </div>
+  <footer>
+    <div class= 'footer'>
+      <div>
+          <p>Связаться с нами:</p>
+          <p>Email: shvarev.egor.a@yandex.ru</p>
+          <p>Tg: @ShvarevEgor</p>
+          <p>Discord: shvap.studio</p>
+          <p>VK: Шварёв Егор</p>
       </div>
+      <div>
+          <p>Связанное с проектом:</p>
+          <p><a class = 'SimpleBtn' href="https://github.com/EgorShva5/GamedevSite" target='_blank'>Код на GitHub</a></p>
+          <p><a class = 'SimpleBtn' href="https://discord.gg/99bqS3TX4c" target='_blank'>Сообщество Discord</a></p>
+          <p><a class = 'SimpleBtn' href="https://discord.gg/EKWBWEa9vA" target='_blank'>Сообщество Shvap Games</a></p>
+          <p><a class = 'SimpleBtn' href="https://github.com/EgorShva5/GamedevSite" target='_blank'>Официальный сайт Shvap</a></p>
+      </div>
+      <div>
+          <p>Правила:</p>
+          <p><a class = 'SimpleBtn' href="https://github.com/EgorShva5/GamedevSite" target='_blank'>Правила использования</a></p>
+          <p><a class = 'SimpleBtn' href="https://github.com/EgorShva5/GamedevSite" target='_blank'>Политика конфиденциальности</a></p>
+      </div>
+    </div>
     <div class="under_footer">
         <h1>Все права защищены, Shvap Studio ©, 2025 год</h1>
     </div>
@@ -130,13 +174,15 @@
   }
 
   .SimpleBtn {
-      color: antiquewhite;
-      transition: all .2s;
+    text-decoration: none;
+    color: antiquewhite;
+    transition: all .2s;
+    cursor: pointer;
   }
 
   .SimpleBtn:hover {
-      color: #259073;
-      text-shadow: 0px 0px 20px #259073;
+    color: #259073;
+    text-shadow: 0px 0px 10px #259073;
   }
 
   .MainHeading {
@@ -248,11 +294,16 @@
     display: flex;
     flex-direction: row;
     text-align: center;
+    flex-wrap: wrap;
     align-items: center;
     margin-left: auto;
     justify-content: space-around;
     margin-right: auto;
     color: antiquewhite;
+  }
+
+  .footer p {
+    margin: 10px;
   }
 
   .footer div{
@@ -281,7 +332,6 @@
 
   /* Контейнер, в котором будут находиться все слайды */
   .slides {
-      opacity: 1.0;
       text-align: center;
       display: flex; /* Располагаем слайды в ряд */
       flex-wrap: wrap;
@@ -290,24 +340,105 @@
 
   /* Каждый отдельный слайд */
   .slide {
+      transition: all .2s;
+  
       max-width: 300px;
       color: antiquewhite;
       margin: 10px 10px;
       flex-shrink: 0; /* Запрещаем уменьшение элементов внутри flex-контейнера */
       img { 
+        transition: all .2s;
+        
+          border-radius: 0%;
           width: 300px;
           height: 300px;
           object-fit: cover;
       } /* Квадратные картинки в слайдах */
   }
 
+.slide:hover {
+    color: #259073;
+
+    img {
+      box-shadow: 0px 0px 20px black;
+      border-radius: 20%;
+    }
+}
+
+  .dev_group {
+    min-height: 47vh;
+    height: auto;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: row;
+    max-width: 80%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;  
+  }
+
+  .devs {
+    text-align: center;
+    display: flex; /* Располагаем слайды в ряд */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .dev {
+    transition: all .2s;
+    max-width: 300px;
+    color: antiquewhite;
+    margin: 10px 10px;
+    flex-shrink: 0; /* Запрещаем уменьшение элементов внутри flex-контейнера */
+    img { 
+      transition: all .2s;
+      border-radius: 100%;
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+    } 
+  }
+  
+  .dev:hover {
+    color: #259073;
+     
+    img {
+      border-radius: 20%;
+    }
+  }
+
+  .final_container {
+    min-height: 400px;
+    height: auto;
+    text-align: center;
+    color: aliceblue;
+    background-color: rgb(20,20,20);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .final_container h3, p{
+    margin: 0;
+  }
+
+  .final_container * {
+    max-width: 30vw;
+  }
+
   .fade-enter-active,
-  .fade-leave-active {
+  .fade-leave-active,
+  .fade_a-leave-active,
+  .fade_a-enter-active {
     transition: opacity 0.5s ease;
   }
 
   .fade-enter-from,
-  .fade-leave-to {
+  .fade-leave-to,
+  .fade_a-enter-from,
+  .fade_a-leave-to {
     opacity: 0.0;
   }
 </style>

@@ -184,7 +184,7 @@
   }
 
   .slider_container {
-      min-height: 33vh;
+      min-height: 47vh;
       height: auto;
       padding: 0 10px;
       display: flex;

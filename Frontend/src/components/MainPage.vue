@@ -1,18 +1,18 @@
 <script setup>
   import { ref, Transition } from 'vue'
 
-  import CardController from './components/CardController.vue'
+  import CardController from '../components/CardController.vue'
 
   import axios from "axios"
 
-  import placeholderBurger from './assets/placeholder-burger.jpg'
-  import neckhurts from './assets/neckhurts.png'
+  import placeholderBurger from '../assets/placeholder-burger.jpg'
+  import neckhurts from '../assets/neckhurts.png'
   import icon from '/icon.png'
-  import shvIco from './assets/GoogPlayIco.jpg'
-  import rietlyIcn from './assets/rietly.png'
-  import goldhide from './assets/GH.jpg'
-  import badFantasy from './assets/nems82.png'
-  import brightMystery from './assets/DpvPIO.png'
+  import shvIco from '../assets/GoogPlayIco.jpg'
+  import rietlyIcn from '../assets/rietly.png'
+  import goldhide from '../assets/GH.jpg'
+  import badFantasy from '../assets/nems82.png'
+  import brightMystery from '../assets/DpvPIO.png'
 
   const show = ref(true)
   const show_two = ref(true)
@@ -64,54 +64,75 @@
 </script>
 
 <template>
-
-  <header>
-    <div class = 'head_container'>
-        <div class="h_cotainer">
-            <img class="header_img" :src="icon" alt='Лого' />
-            <h1 class="title_text">| Подземная сеть геймдева</h1>
+    <section class="welcome">
+        <div  class="main_container">
+            <div id ='header_text'>
+                <input :value="message" readonly>{{ message }}</input>
+                <button @click="getResponse">Button</button>
+                <h1 class="MainHeading" style='color: antiquewhite'>Подземная сеть геймдева</h1>
+                <h1 style='color: antiquewhite'>Сообщество независимых разработчиков игр из СНГ.</h1>
+                <p style='color: antiquewhite'>Мы - независимые разработчики из России, Беларуси, Казахстана, Украины и других стран бывшего Советского Союза. Среди нас уже больше 5 различных студий, создающих игры для вас! В творениях участников сообщества представлены игры различных жанров - от приключений до vampirelike.</p>
+            </div>
         </div>
-        <div>
-        <ul class = 'header_btns'>
-            <li><router-link to="/about" class = 'SimpleBtn'>Каталог</router-link></li>
-            <li><a class = 'SimpleBtn'>О нас</a></li>
-            <li><a class = 'SimpleBtn'>Как попасть?</a></li>
-            <li><a class = 'SimpleBtn'>Войти</a></li>
-        </ul>
-        </div>
-    </div>
-  </header>
+    </section>
 
-  <main>
-    <router-view> </router-view>
-  </main>
- 
-  <footer>
-    <div class= 'footer'>
-      <div>
-          <p>Связаться с нами:</p>
-          <p>Email: shvarev.egor.a@yandex.ru</p>
-          <p>Tg: @ShvarevEgor</p>
-          <p>Discord: shvap.studio</p>
-          <p>VK: Шварёв Егор</p>
+    <section class='card_games'>
+      <br/>
+      <h1 style='color: antiquewhite; text-align: center;' class="MainHeading">Лучшие игры:</h1>
+
+      <Transition  name = 'fade'>
+      <div v-if="show" class='slider_container'>
+          <div id ='Games' class="slider">           
+              <div id ='game_box' class="slides">
+                <template v-for='slide in slidesGlobal'>
+                  <div class='slide' v-if='!slide.isHidden'>
+                    <a :href='slide.link' target='_blank'>
+                      <img :src="slide.img" alt="Картинка">
+                    </a>
+                    <h1>{{ slide.title }}</h1>
+                  </div>
+                </template>
+              </div>
+          </div>
       </div>
-      <div>
-          <p>Связанное с проектом:</p>
-          <p><a class = 'SimpleBtn' href="https://github.com/EgorShva5/GamedevSite" target='_blank'>Код на GitHub</a></p>
-          <p><a class = 'SimpleBtn' href="https://discord.gg/99bqS3TX4c" target='_blank'>Сообщество Discord</a></p>
-          <p><a class = 'SimpleBtn' href="https://discord.gg/EKWBWEa9vA" target='_blank'>Сообщество Shvap Games</a></p>
-          <p><a class = 'SimpleBtn' href="https://github.com/EgorShva5/GamedevSite" target='_blank'>Официальный сайт Shvap</a></p>
+    </Transition>
+
+    <CardController :show = 'show' :all-slides='slidesGlobal' @update-slides="updatedSlides => slidesGlobal = updatedSlides" @update-show="updatedShow => show = updatedShow"/>
+
+    </section>
+
+    <section class = 'card_devs'>
+      <div class = 'slider_container'>
+          <br />
+          <h1 style='color: antiquewhite; text-align: center;' class="MainHeading">Лучшие разработчики:</h1>
+          <Transition name = 'fade_a'>
+          <div v-if="show_two" class="dev_group">
+            <div class="devs">
+                <template v-for="author in authorGlobal">
+                  <div class='dev' v-if='!author.isHidden'>
+                    <a :href='author.link' target='_blank'>
+                      <img :src="author.img" alt="Картинка">
+                    </a>
+                    <h1>{{ author.title }}</h1>
+                  </div>
+                </template>
+              <!---placeholderBurger-->
+            </div>
+          </div>
+          </Transition>
       </div>
-      <div>
-          <p>Правила:</p>
-          <p><a class = 'SimpleBtn' href="https://github.com/EgorShva5/GamedevSite" target='_blank'>Правила использования</a></p>
-          <p><a class = 'SimpleBtn' href="https://github.com/EgorShva5/GamedevSite" target='_blank'>Политика конфиденциальности</a></p>
+      <CardController :show_two= 'show' :all-slides='authorGlobal' @update-slides="updatedSlides => authorGlobal = updatedSlides" @update-show="updatedShow => show_two = updatedShow"/>
+    </section>
+
+    <section class = 'FinalMessage'>
+      <div class = 'final_container'>
+        <h1 class="MainHeading">На этом пока всё. Что же дальше?</h1>
+        <p>В <a style="font-size: 25px;" class="SimpleBtn" href="https://google.com">этой статье</a> мы рассказали, что можно делать на сайте различным группам пользователей. Мы уверенны, она поможет вам освоиться здесь! <br>--- --- ---</p>
+        <h3>Вступайте в наше дружное Discord-сообщество!</h3>
+        <p>Здесь вы можете найти множество интересных проектов, посмотреть на блоги участников инициативы и завести множество друзей! <a style="font-size: 25px;" class="SimpleBtn" href="https://google.com" target="_blank"> Тебе стоит лишь нажать на эту ссылку.</a> Ждём тебя!</p>
       </div>
-    </div>
-    <div class="under_footer">
-        <h1>Все права защищены, Shvap Studio ©, 2025 год</h1>
-    </div>
-  </footer>
+    </section>
+
 </template>
 
 <style lang="css" scoped>

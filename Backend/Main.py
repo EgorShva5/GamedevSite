@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
 
 # uvicorn Main:app --reload --host 0.0.0.0 --port 8000
 app = FastAPI()
@@ -17,6 +19,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class Item(BaseModel):
+    name: str
+
+@app.post('/Custom')
+async def root(req: Item):
+    print(req.name)
+
 @app.get('/')
 async def root(req: Request):
     return {'message':'hello from backend!'}
+
+@app.get('/Custom')
+async def root2(req: Request):
+    return {'message':'hi'}

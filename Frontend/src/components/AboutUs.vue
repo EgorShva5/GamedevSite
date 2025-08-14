@@ -1,6 +1,4 @@
 <script setup>
-    import { ref, Transition } from 'vue'
-
     import Sanya from '../assets/201072348.png'
     import Goga from '../assets/GoogPlayIco.jpg'
 
@@ -22,7 +20,7 @@
                     <p><a href="https://github.com/rabiNyoom" class="Btn">GitHub</a></p>
                 </div>
                 <div class="dev_card">
-                    <img :src = 'Goga' alt="Саня"></img>
+                    <img :src = 'Goga' alt="Гога"></img>
                     <h1>EgorShva5</h1>
                     <p>Пишет фронт и бек, пытается доганть Саню</p>
                     <p><a href="https://github.com/rabiNyoom" class="Btn">GitHub</a></p>
@@ -42,7 +40,7 @@
     </section>
 </template>
 
-<style>
+<style lang="css" scoped>
     p {
         margin: 4px;
     }

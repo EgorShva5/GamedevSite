@@ -28,7 +28,7 @@
         ...slide,
         isHidden: !(index >= first && index < last)
       }
-    })
+    });
 
     let updatedShow = !props.show
 
@@ -44,7 +44,7 @@
 
   onMounted(() => {
     setCurrentGames(1)
-  })
+  });
 </script>
 
 <template>

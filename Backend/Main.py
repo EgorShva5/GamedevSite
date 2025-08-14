@@ -48,10 +48,10 @@ async def root(req: Request, res: Response):
     print(banner_exists)
     
     if banner_exists: 
-        return {'message':banner_exists}
+        return {'message': banner_exists}
     else: 
-        res.status_code=404
-        return {'message':'banner not found'}
+        res.status_code= status.HTTP_404_NOT_FOUND
+        return {'message': 'banner not found'}
 
 @app.post('/')
 async def root(req:Request):

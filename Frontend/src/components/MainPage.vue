@@ -2,6 +2,7 @@
   import { ref, Transition } from 'vue'
 
   import CardController from '../components/CardController.vue'
+  import TestBanner from './TestBanner.vue'
 
   import axios from "axios"
 
@@ -52,6 +53,7 @@
     } catch {
       message.value='failed to get response'
     }
+  }
     
     /*try {
         const resp = await axios.get('http://localhost:8000/Custom', {timeout: 3000})
@@ -59,7 +61,6 @@
       } catch {
         message.value='failed to get response'
       }*/
-    }
 
 </script>
 
@@ -67,12 +68,13 @@
     <section class="welcome">
         <div  class="main_container">
             <div id ='header_text'>
-                <input :value="message" readonly>{{ message }}</input>
+                <input :value="message" readonly></input>
                 <button @click="getResponse">Button</button>
                 <h1 class="MainHeading" style='color: antiquewhite'>Подземная сеть геймдева</h1>
                 <h1 style='color: antiquewhite'>Сообщество независимых разработчиков игр из СНГ.</h1>
                 <p style='color: antiquewhite'>Мы - независимые разработчики из России, Беларуси, Казахстана, Украины и других стран бывшего Советского Союза. Среди нас уже больше 5 различных студий, создающих игры для вас! В творениях участников сообщества представлены игры различных жанров - от приключений до vampirelike.</p>
             </div>
+            <TestBanner/>
         </div>
     </section>
 

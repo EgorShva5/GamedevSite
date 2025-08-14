@@ -13,7 +13,7 @@
         <ul class = 'header_btns'>
             <li><router-link to="/about" class = 'SimpleBtn'>Каталог</router-link></li>
             <li><router-link to="/about" class = 'SimpleBtn' >О нас</router-link></li>
-            <li><a class = 'SimpleBtn'>Как попасть?</a></li>
+            <li><router-link to="/how_to_get" class = 'SimpleBtn'>Как попасть?</router-link></li>
             <li><a class = 'SimpleBtn'>Войти</a></li>
         </ul>
         </div>

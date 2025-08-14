@@ -25,7 +25,7 @@
     
     console.log(cur_page)
 
-    window.clearTimeout(new_page)
+    window.clearTimeout(cur_page)
 
     const updatedSlides = props.allSlides.map((slide, index) => {
       const first = (page - 1) * PER_PAGE

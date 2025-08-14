@@ -61,9 +61,9 @@ async def root(req: Request, res: Response):
     
     print(banner_exists)
     
-    if banner_exists:
+    if banner_exists: 
         return {'message': banner_exists}
-    else:
+    else: 
         res.status_code= status.HTTP_404_NOT_FOUND
         return {'message': 'banner not found'}
 

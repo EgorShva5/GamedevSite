@@ -68,13 +68,13 @@
     <section class="welcome">
         <div  class="main_container">
             <div id ='header_text'>
-                <input :value="message" readonly></input>
-                <button @click="getResponse">Button</button>
+                <!--<input :value="message" readonly></input>-->
+                <!--<button @click="getResponse">Button</button>-->
                 <h1 class="MainHeading" style='color: antiquewhite'>Подземная сеть геймдева</h1>
                 <h1 style='color: antiquewhite'>Сообщество независимых разработчиков игр из СНГ.</h1>
                 <p style='color: antiquewhite'>Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Приставка снова семантика безорфографичный одна вопрос сбить большой жаренные свою.</p>
             </div>
-            <TestBanner/>
+            <!--<TestBanner/>-->
         </div>
     </section>
 

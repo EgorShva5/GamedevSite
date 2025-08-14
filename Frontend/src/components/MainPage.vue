@@ -11,8 +11,8 @@
   import shvIco from '../assets/GoogPlayIco.jpg'
   import rietlyIcn from '../assets/rietly.png'
   import goldhide from '../assets/GH.jpg'
-  import badFantasy from '../assets/nems82.png'
-  import brightMystery from '../assets/DpvPIO.png'
+  import badFantasy from '../assets/nems821.png'
+  import brightMystery from '../assets/DpvPIO2.png'
 
   const show = ref(true)
   const show_two = ref(true)

@@ -19,7 +19,14 @@
   const PER_PAGE = 3
   const maxPages = computed(() => Math.ceil(props.allSlides.length / PER_PAGE))
 
+  let cur_page = 0
+
   function setCurrentGames(page) {
+    
+    console.log(cur_page)
+
+    window.clearTimeout(new_page)
+
     const updatedSlides = props.allSlides.map((slide, index) => {
       const first = (page - 1) * PER_PAGE
       const last = first + PER_PAGE
@@ -32,6 +39,8 @@
 
     let updatedShow = !props.show
 
+    cur_page = page
+
     emit('update-slides', updatedSlides)
     emit('update-show', updatedShow)
 
@@ -43,8 +52,9 @@
   }
 
   onMounted(() => {
-    setCurrentGames(1)
+    setCurrentGames(1);
   });
+  
 </script>
 
 <template>

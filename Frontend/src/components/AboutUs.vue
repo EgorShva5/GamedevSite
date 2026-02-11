@@ -26,15 +26,24 @@
                     <p><a href="https://github.com/rabiNyoom" class="Btn">GitHub</a></p>
                 </div>
             </div>
-            <br></br>
-            <div class="center text_w">
-                <h1 class = 'MainHeading'>О проекте</h1>
-                <p>Ехал грека через реку видит грека в реке рак сунул грека руку в реку рак за руку греку цап. Ехал грека через реку видит грека в реке рак сунул грека руку в реку рак за руку греку цап. Ехал грека через реку видит грека в реке рак сунул грека руку в реку рак за руку греку цап. Ехал грека через реку видит грека в реке рак сунул грека руку в реку рак за руку греку цап</p>
-            </div>
-            <br></br><br></br>
-            <div class="center text_w">
-                <h1 class = 'MainHeading'>Что мы использовали:</h1>
-                <p>Ехал грека через реку видит грека в реке рак сунул грека руку в реку рак за руку греку цап. Ехал грека через реку видит грека в реке рак сунул грека руку в реку рак за руку греку цап. Ехал грека через реку видит грека в реке рак сунул грека руку в реку рак за руку греку цап. Ехал грека через реку видит грека в реке рак сунул грека руку в реку рак за руку греку цап</p>
+        </div>
+    </section>
+
+    <section class = 'shvap'>
+        <div class="content">
+            <div class="center">
+                <div class="row_align">
+                <img src="https://i.postimg.cc/cHDMsBC0/shv.png" width="250px" height="250px" class="corner_img"></img>
+                <div>
+                    <div class="center text_w">
+                        <h1 class = 'MainHeading'>Команда разработки</h1>
+                        <p>
+                            В разработке проекта принимали участие члены команды разработчиков "Shvap Games".
+                        </p>
+                    </div>
+                
+                </div>
+                </div>
             </div>
         </div>
     </section>
@@ -52,8 +61,8 @@
     .center {
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: center;
+        align-items: center;
         text-align: center;
     }
 
@@ -62,10 +71,29 @@
         max-width: 50vw;
     }
 
+    .row_align {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .corner_img {
+        transition: all .2s;
+        border-radius: 100%;
+    }
+
+    .corner_img:hover {
+        transform: rotate(-15deg)
+    }
+
     .content {
         max-width: 80%;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .shvap {
+        background-color: rgb(20,20,20);
+        min-height: 400px;
     }
 
     .Btn {

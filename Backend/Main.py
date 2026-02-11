@@ -36,6 +36,9 @@ db_session = DBSession()
 class Item(BaseModel):
     name: str
 
+class UserId(BaseModel):
+    id: int
+
 @app.post('/Custom')
 async def root(req: Item):
     print(req.name)
@@ -45,11 +48,22 @@ async def root(req: Request, res: Response):
     banner_id = req.query_params.get('banner') or 1
     banner_exists = db_session.query(Banner).filter_by(id=banner_id).first()
     
-    print(banner_exists)
-    
     if banner_exists: 
         return {'message': banner_exists}
     else: 
+        res.status_code= status.HTTP_404_NOT_FOUND
+        return {'message': 'banner not found'}
+
+@app.get('/GamePage')
+async def root(req: Request, res: Response):
+    user_id = req.query_params.get('id') or 1
+    banner_exists = db_session.query(Banner).filter_by(id=user_id).first()
+    
+    print(banner_exists)
+    
+    if banner_exists:
+        return {'message': banner_exists}
+    else:
         res.status_code= status.HTTP_404_NOT_FOUND
         return {'message': 'banner not found'}
 

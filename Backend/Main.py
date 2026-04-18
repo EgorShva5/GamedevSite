@@ -54,6 +54,17 @@ async def root(req: Request, res: Response):
         res.status_code= status.HTTP_404_NOT_FOUND
         return {'message': 'banner not found'}
 
+@app.get('/Catalog')
+async def root(req: Request, res: Response):
+    banner_id = req.query_params.get('banner') or 1
+    banner_exists = db_session.query(Banner).filter_by(id=banner_id).first()
+    
+    if banner_exists: 
+        return {'message': banner_exists}
+    else: 
+        res.status_code= status.HTTP_404_NOT_FOUND
+        return {'message': 'banner not found'}
+
 @app.get('/GamePage')
 async def root(req: Request, res: Response):
     user_id = req.query_params.get('id') or 1

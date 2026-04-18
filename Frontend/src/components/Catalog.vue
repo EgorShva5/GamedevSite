@@ -1,18 +1,18 @@
 <script setup>
-  import { ref, Transition } from 'vue'
+  import { compile, ref, Transition, computed, onMounted } from 'vue'
 
   import CardController from '../components/CardController.vue'
   import TestBanner from './TestBanner.vue'
 
   import axios from "axios"
 
-  import placeholderBurger from '../assets/bckgweb.png'
+  import placeholderBurger from '../assets/template_vopros.png'
   import neckhurts from '../assets/neckhurts.png'
   import icon from '/icon.png'
   import shvIco from '../assets/GoogPlayIco.jpg'
   import rietlyIcn from '../assets/rietly.png'
   import goldhide from '../assets/GH.jpg'
-  import badFantasy from '../assets/nems821.png'
+  import badFantasy from '../assets/nems821.png' 
   import brightMystery from '../assets/DpvPIO2.png'
   import dev_icon from '../assets/saund2fin.png'
   import underbox from '../assets/underbox.png'
@@ -20,54 +20,46 @@
   import catronns from '../assets/FNWC.png'
   import ch_pack from '../assets/CharactersPack.png'
   import racing_game from '../assets/RacingGameRe-make.png'
-  
+
   const show = ref(true)
   const show_two = ref(true)
 
   const message = ref('')
 
-  const slidesGlobal = ref([
-  { img: dev_icon, title: "Mountain Brotherhood", link: "https://store.steampowered.com/app/2894900/Devastablance_Gornoe_Bratstvo/", isHidden: true},
-  { img: brightMystery, title: "Bright Mystery", link: "https://www.youtube.com/watch?v=Hr5xdIWHljA", isHidden: true},
-  { img: badFantasy, title: "BAD Fantasy", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
-  { img: underbox, title: "Underbox", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
-  { img: svo, title: "Своя игра! Кинематика", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
-  { img: catronns, title: "Пять ночей с мультиками", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
-  { img: racing_game, title: "Гонка!", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
-  { img: ch_pack, title: "Пак персонажей", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
-  { img: placeholderBurger, title: "placeholder", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
-  { img: placeholderBurger, title: "placeholder", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
-  { img: placeholderBurger, title: "placeholder", link: "https://vuejs.org/guide/introduction.html", isHidden: true},
-]) // 11 for now
+  const per_page = 20
 
-  const authorGlobal = ref([
-    { img: shvIco, title: "Shvap", link: "https://google.com", isHidden: true},
-    { img: rietlyIcn, title: "Rietly", link: "https://google.com", isHidden: true},
-    { img: goldhide, title: "GoldHide games", link: "https://google.com", isHidden: true},
-    { img: placeholderBurger, title: "placeholder", link: "https://google.com", isHidden: true},
-    { img: placeholderBurger, title: "placeholder", link: "https://google.com", isHidden: true},
-    { img: placeholderBurger, title: "placeholder", link: "https://google.com", isHidden: true},
-    { img: placeholderBurger, title: "placeholder", link: "https://google.com", isHidden: true},
-    { img: placeholderBurger, title: "placeholder", link: "https://google.com", isHidden: true},
-    { img: placeholderBurger, title: "placeholder", link: "https://google.com", isHidden: true},
-    { img: placeholderBurger, title: "placeholder", link: "https://google.com", isHidden: true}
+  let slidesGlobal = ref([
+   /* { img: 'template_vopros.png', title: "Тестовое название", link: "https://store.steampowered.com/app/2894900/Devastablance_Gornoe_Bratstvo/", isHidden: false}*/
   ])
 
-  async function getResponse() {
+  function getImageUrl(name) {
+    return new URL(`../assets/${name}`, import.meta.url).href
+  }
+
+  async function getGame(game_id) {
     try {
-      const res = await axios.post('http://localhost:8000/Custom', {name: 'Egr'}, {timeout: 5000})
+      const res = await axios.get('http://localhost:8000/Catalog', {params: {banner: game_id}}, {timeout: 5000}) /*('http://localhost:8000/Custom', {timeout: 5000})*/
+
+      let data = res.data.message
+      console.log(slidesGlobal.value.push({img: data.imgpath, title: data.title, link: data.linkpath, id: data.id, isHidden: true}))
+
     } catch {
       message.value='failed to get response'
     }
   }
-    
-    /*try {
-        const resp = await axios.get('http://localhost:8000/Custom', {timeout: 3000})
-        message.value=resp.data.message
-      } catch {
-        message.value='failed to get response'
-      }*/
 
+  async function getGameList(start, end) {
+    for (let i = start; i <= end; i++) {
+      getGame(i); 
+      console.log(i)
+    }
+  }
+
+  onMounted(
+    () => {
+      getGameList(1,20);
+    }
+  );
 </script>
 
 <template>
@@ -76,60 +68,33 @@
             <div id ='header_text'>
                 <!--<input :value="message" readonly></input>-->
                 <!--<button @click="getResponse">Button</button>-->
-                <h1 class="MainHeading" style='color: antiquewhite'>Подземная сеть геймдева</h1>
-                <h1 style='color: antiquewhite'>Сообщество независимых разработчиков игр из СНГ.</h1>
-                <p style='color: antiquewhite'>Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Приставка снова семантика безорфографичный одна вопрос сбить большой жаренные свою.</p>
-            </div>
+                <h1 class="MainHeading" style='color: antiquewhite'>Умный помощник</h1>
+                <h1 style='color: antiquewhite'>Поможет подобрать интересные именно вам игры!</h1>
+                <p style='color: antiquewhite'>Умный алгоритм рекомендаций определит ваши увлечения, а также подберёт игры в соответствии с выбранными тегами.</p>
+                <br>
+                <a href = 'https://www.google.com' id = 'create_recomendation_btn'> Найти игры!</a>
+              </div>
             <!--<TestBanner/>-->
         </div>
     </section>
 
     <section class='card_games'>
-      <br/>
-      <h1 style='color: antiquewhite; text-align: center;' class="MainHeading">Лучшие игры:</h1>
-
-      <Transition  name = 'fade'>
-      <div v-if="show" class='slider_container'>
-          <div id ='Games' class="slider">           
-              <div id ='game_box' class="slides">
-                <template v-for='slide in slidesGlobal'>
-                  <div class='slide' v-if='!slide.isHidden'>
-                    <a :href='slide.link' target='_blank'>
-                      <img :src="slide.img" alt="Картинка">
-                    </a>
-                    <h1>{{ slide.title }}</h1>
-                  </div>
-                </template>
-              </div> <!---->
-          </div>
-      </div>
-    </Transition>
-
-    <CardController :show = 'show' :all-slides='slidesGlobal' :perpage="3" @update-slides="updatedSlides => slidesGlobal = updatedSlides" @update-show="updatedShow => show = updatedShow"/>
-
-    </section>
-
-    <section class = 'card_devs'>
-      <div class = 'slider_container'>
-          <br />
-          <h1 style='color: antiquewhite; text-align: center;' class="MainHeading">Лучшие разработчики:</h1>
-          <Transition name = 'fade_a'>
-          <div v-if="show_two" class="dev_group">
-            <div class="devs">
-                <template v-for="author in authorGlobal">
-                  <div class='dev' v-if='!author.isHidden'>
-                    <a :href='author.link' target='_blank'>
-                      <img :src="author.img" alt="Картинка">
-                    </a>
-                    <h1>{{ author.title }}</h1>
-                  </div>
-                </template>
-              <!---placeholderBurger-->
+        <br/>
+        <br><br></br>
+      <h1 style='color: antiquewhite; text-align: center;' class="MainHeading">Каталог игр:</h1>
+        <br><br></br>
+      <div class="devs">
+        <template v-for='slide in slidesGlobal'>
+            <div v-if="slide.isHidden===false" class='slide'>
+              <router-link :to="`/game/`+slide.id"> 
+                <img :src="getImageUrl(slide.img)" alt="Картинка">
+              </router-link>
+              <h1>{{ slide.title }}</h1>
             </div>
-          </div>
-          </Transition>
+        </template>
       </div>
-      <CardController :show_two= 'show' :all-slides='authorGlobal' :perpage="3" @update-slides="updatedSlides => authorGlobal = updatedSlides" @update-show="updatedShow => show_two = updatedShow"/>
+      
+      <CardController :show = 'show' :all-slides='slidesGlobal' :perpage="per_page" @update-slides="updatedSlides => slidesGlobal = updatedSlides" @update-show="updatedShow => show = updatedShow"/>
     </section>
 
     <section class = 'FinalMessage'>
@@ -172,6 +137,10 @@
   }
 
   .card_games {
+    flex-direction: column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       box-shadow: 0px 0px 60px rgb(10,10,10);
       background-color: rgb(20,20,20);
   }
@@ -186,26 +155,35 @@
   }
 
   .welcome {
-      margin-top: -100px;
-      padding-top: 100px;
       align-items: center;
       background-color: rgb(20,20,20);
-      background-image: url(https://i.postimg.cc/tCPfQ12z/image.png);
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
+      background-image: url(https://i.postimg.cc/mgSGhYCb/abstract-green-light-black-shadow-line-geometric-on-dark-grey-metallic-design-modern-luxury-futurist.jpg);
+      background-repeat: repeat;
+      background-position: right;
   }
 
   .main_container {
-      min-height: 500px;
+      margin-right: auto;  
+      margin-left: auto;
+      min-height: 320px;
+      max-width: 60%;
       height: auto;
       padding: 0 10px;
       display: flex;
       flex-direction: column;
-      max-width: 80%;
       justify-content: center;
-      margin-right: auto;  
-      margin-left: auto;
+      align-items: center;
+
+  }
+
+  #create_recomendation_btn {
+    min-width: 30vh;
+    min-height: 40px;
+    background-color: bisque;
+    color: black;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 10px;
   }
 
   #header_text {
@@ -249,6 +227,7 @@
   }
 
   #header_text {
+      
       cursor: default;
       transition: all .1s;
       border-left: 0px solid #259073;
@@ -328,7 +307,7 @@
   
       max-width: 300px;
       color: antiquewhite;
-      margin: 10px 10px;
+      margin: 15px 10px;
       flex-shrink: 0; /* Запрещаем уменьшение элементов внутри flex-контейнера */
       img { 
         transition: all .2s;
@@ -362,6 +341,7 @@
   }
 
   .devs {
+    max-width: 70%;
     text-align: center;
     display: flex; /* Располагаем слайды в ряд */
     flex-direction: row;

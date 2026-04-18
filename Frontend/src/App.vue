@@ -7,11 +7,12 @@
     <div class = 'head_container'>
         <div class="h_cotainer">
             <router-link to = '/'><img class="header_img" :src="icon" alt='Лого'></img></router-link>
-            <h1 class="title_text">| Подземная сеть геймдева</h1>
+            <h1 class="title_text">| Сеть игростроя</h1>
         </div>
         <div>
         <ul class = 'header_btns'>
-            <li><router-link to="/about" class = 'SimpleBtn'>Каталог</router-link></li>
+            <li><router-link to="/catalog" class = 'SimpleBtn'>Каталог</router-link></li>
+            <li><router-link to="/about" class = 'SimpleBtn' >Сообщество</router-link></li>
             <li><router-link to="/about" class = 'SimpleBtn' >О нас</router-link></li>
             <li><router-link to="/how_to_get" class = 'SimpleBtn'>Как попасть?</router-link></li>
             <li><a class = 'SimpleBtn'>Войти</a></li>

@@ -91,6 +91,7 @@
     .FirstPar {
         color: antiquewhite;
         align-items: center;
+        background-color: rgb(20,20,20);
         background-image: url(https://i.postimg.cc/tTBJwTKs/2025-08-15-17-14-45.png);
         background-repeat: repeat;
         background-size: cover;

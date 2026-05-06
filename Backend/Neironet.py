@@ -3,29 +3,49 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.utils import to_categorical
+from database import Base, Banner, User, GameDeepInfo
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 import os
 
-# ----- 1. Подготовка данных -----
-games = ["DOOM", "Minecraft", "The Witcher 3", "GTA V", "Stardew Valley"]
-
+games = []
 all_tags = [
-    "шутер", "открытый мир", "ролевая игра", "выживание",
-    "строительство", "зомби", "сюжет", "гонки", "ферма", "магия"
+    "шутер", "открытый мир", "ролевая игра", 
+    "выживание",
+    "строительство", "зомби", "сюжет",
+    "гонки", "ферма", "фентези", 'aркада',
+    'мультиплеер',
+    'нелинейная', 'рогалик'  
 ]
 
-data = {
-    "DOOM":           [1, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-    "Minecraft":      [0, 1, 0, 1, 1, 0, 0, 0, 0, 0],
-    "The Witcher 3":  [0, 1, 1, 0, 0, 0, 1, 0, 0, 1],
-    "GTA V":          [1, 1, 0, 0, 0, 0, 1, 1, 0, 0],
-    "Stardew Valley": [0, 0, 0, 0, 1, 0, 0, 0, 1, 0]
-}
+data = {}
+
+engine = create_engine('sqlite:///./Test.db')
+Base.metadata.bind = engine
+DBSession = sessionmaker(bind=engine)
+db_session = DBSession()
+
+
+def _create_data():
+    data = {}
+    games = []
+    db_data = db_session.query(GameDeepInfo).all()
+    for i in db_data:
+        data[i.game_id] = i.tags.split(',')
+        games.append(i.game_id)
+        
+    return (data, games)
+
+data, games = _create_data()
+
+print(data,games)
+
 
 X = np.array([data[game] for game in games], dtype=np.float32)
 y = np.array([games.index(game) for game in games])
 y_onehot = to_categorical(y, num_classes=len(games))
 
-MODEL_FILENAME = "game_recommender_model.keras" 
+MODEL_FILENAME = "neironet/game_recommender_model.keras" 
 
 def create_model():
     model = Sequential([
@@ -54,8 +74,3 @@ def recommend_game(tags_str):
     best_idx = np.argmax(probs)
     confidence = probs[best_idx]
     return games[best_idx], confidence
-
-if __name__ == "__main__":
-    user_input = input("Введите теги через запятую (например: шутер, зомби): ")
-    game, conf = recommend_game(user_input)
-    print(f"Рекомендуемая игра: {game} (уверенность: {conf:.2f})")

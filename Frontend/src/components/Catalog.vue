@@ -3,23 +3,9 @@
 
   import CardController from '../components/CardController.vue'
   import TestBanner from './TestBanner.vue'
+  import Recomendation from '../components/RecommendedGame.vue'
 
   import axios from "axios"
-
-  import placeholderBurger from '../assets/template_vopros.png'
-  import neckhurts from '../assets/neckhurts.png'
-  import icon from '/icon.png'
-  import shvIco from '../assets/GoogPlayIco.jpg'
-  import rietlyIcn from '../assets/rietly.png'
-  import goldhide from '../assets/GH.jpg'
-  import badFantasy from '../assets/nems821.png' 
-  import brightMystery from '../assets/DpvPIO2.png'
-  import dev_icon from '../assets/saund2fin.png'
-  import underbox from '../assets/underbox.png'
-  import svo from '../assets/SVOItch.png'
-  import catronns from '../assets/FNWC.png'
-  import ch_pack from '../assets/CharactersPack.png'
-  import racing_game from '../assets/RacingGameRe-make.png'
 
   const show = ref(true)
   const show_two = ref(true)
@@ -27,6 +13,8 @@
   const message = ref('')
 
   const per_page = 20
+
+  let rec_game = ref()
 
   let slidesGlobal = ref([
    /* { img: 'template_vopros.png', title: "Тестовое название", link: "https://store.steampowered.com/app/2894900/Devastablance_Gornoe_Bratstvo/", isHidden: false}*/
@@ -38,17 +26,60 @@
 
   async function getGame(game_id) {
     try {
+      console.log('res');
       const res = await axios.get('http://localhost:8000/Catalog', {params: {banner: game_id}}, {timeout: 5000}) /*('http://localhost:8000/Custom', {timeout: 5000})*/
-
+      
       let data = res.data.message
-      console.log(slidesGlobal.value.push({img: data.imgpath, title: data.title, link: data.linkpath, id: data.id, isHidden: true}))
+      console.log(slidesGlobal.value.push({img: data.imgpath, title: data.title, link: data.linkpath, id: data.id, isHidden: false}))
 
     } catch {
       message.value='failed to get response'
     }
   }
 
-  async function getGameList(start, end) {
+
+  async function getRecomendation(game_tags) {
+    try {
+      const res = await axios.get('http://localhost:8000/RecommendedGame', {params: {tags: 'зомби, аркада'}}, {timeout: 5000})
+
+      let data = res.data.message
+
+      getRecommendedGame(data)
+      console.log(data)
+    } catch {
+      message.value = 'failed to get response'
+    }
+  }
+
+  async function getRecommendedGame(game_id) {
+    try {
+      const game_data = await axios.get('http://localhost:8000/Catalog', {params: {banner: game_id}}, {timeout: 5000}) 
+
+      rec_game.value = game_data.data.message
+      console.log(rec_game.value, game_data)
+    } catch {
+      return 'Fail'
+    }
+  }
+
+  const max_on_page = 15
+  let page_num = 0
+
+  function pagination(where) {
+    page_num += Number(where.target.id)
+    
+    slidesGlobal.value = []
+
+    window.scrollTo({
+      top: 380,
+      left: 0,
+      behavior: 'smooth'
+    });
+
+    getGameList(max_on_page*page_num+1, max_on_page*page_num+max_on_page)
+  }
+
+  function getGameList(start, end) {
     for (let i = start; i <= end; i++) {
       getGame(i); 
       console.log(i)
@@ -57,12 +88,14 @@
 
   onMounted(
     () => {
-      getGameList(1,20);
+      getGameList(1,15);
     }
   );
 </script>
 
 <template>
+    <Recomendation v-if='rec_game' :game_info='rec_game'/>
+
     <section class="welcome">
         <div  class="main_container">
             <div id ='header_text'>
@@ -72,7 +105,8 @@
                 <h1 style='color: antiquewhite'>Поможет подобрать интересные именно вам игры!</h1>
                 <p style='color: antiquewhite'>Умный алгоритм рекомендаций определит ваши увлечения, а также подберёт игры в соответствии с выбранными тегами.</p>
                 <br>
-                <a href = 'https://www.google.com' id = 'create_recomendation_btn'> Найти игры!</a>
+                <a @click='getRecomendation()' id = 'create_recomendation_btn'> Найти игры!</a> <br> <br>
+                <p style='color: antiquewhite'>Для улучшения метрик можете пройти <router-link to="/opros">небольшой опрос</router-link></p>
               </div>
             <!--<TestBanner/>-->
         </div>
@@ -93,33 +127,31 @@
             </div>
         </template>
       </div>
-      
-      <CardController :show = 'show' :all-slides='slidesGlobal' :perpage="per_page" @update-slides="updatedSlides => slidesGlobal = updatedSlides" @update-show="updatedShow => show = updatedShow"/>
+      <div class = 'w_cotainer'>
+        <a @click='pagination' :id = '-1' class = 'SimpleBtn WithBorder'>Предыдущ. страница</a>
+        <a @click='pagination' :id = '1' class = 'SimpleBtn WithBorder'>След. страница</a>
+      </div>
     </section>
 
     <section class = 'FinalMessage'>
       <div class = 'final_container'>
         <h1 class="MainHeading">На этом пока всё. Что же дальше?</h1>
         <p>В <a style="font-size: 25px;" class="SimpleBtn" href="https://google.com">этой статье</a> мы рассказали, что можно делать на сайте различным группам пользователей. Мы уверенны, она поможет вам освоиться здесь! <br>--- --- ---</p>
-        <h3>Вступайте в наше дружное Discord-сообщество!</h3>
-        <p>Здесь вы можете найти множество интересных проектов, посмотреть на блоги участников инициативы и завести множество друзей! <a style="font-size: 25px;" class="SimpleBtn" href="https://google.com" target="_blank"> Тебе стоит лишь нажать на эту ссылку.</a> Ждём тебя!</p>
+        <h3>Вступайте в наше дружное Lenza-сообщество!</h3>
+        <p>Здесь вы можете найти множество интересных проектов, посмотреть на блоги участников инициативы и завести множество друзей! <a style="font-size: 25px;" class="SimpleBtn" href="https://chat.lenzaos.com/s/1U5l0w" target="_blank"> Тебе стоит лишь нажать на эту ссылку.</a> Ждём тебя! <br>--- --- ---</p> 
+        <p> P.s: Lenza - предпочтительный вариант, однако наше сообщество так же обитает в 
+          <a style="font-size: 25px;" class="SimpleBtn" href="https://chat.lenzaos.com/s/1U5l0w" target="_blank">Discord</a> 
+          и 
+          <a style="font-size: 25px;" class="SimpleBtn" href="https://chat.lenzaos.com/s/1U5l0w" target="_blank">Telegram</a>
+          , а так же в
+          <a style="font-size: 25px;" class="SimpleBtn" href="https://chat.lenzaos.com/s/1U5l0w" target="_blank">МАКС</a>
+        </p>
       </div>
     </section>
 
 </template>
 
 <style lang="css" scoped>
-  .head_container {
-      background-color: rgb(20,20,20);
-      padding: 0 10px;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: center;
-      margin-left: auto;
-      margin-right: auto;
-  }
-
   .SimpleBtn {
     text-decoration: none;
     color: antiquewhite;
@@ -130,6 +162,17 @@
   .SimpleBtn:hover {
     color: #259073;
     text-shadow: 0px 0px 10px #259073;
+  }
+
+  .SimpleBtn.WithBorder {
+    border: 2px solid #259073;
+    padding: 5px;
+    margin: 5px;
+  }
+
+  .SimpleBtn.WithBorder:hover {
+    border-radius: 20px;
+
   }
 
   .MainHeading {
@@ -143,15 +186,6 @@
       align-items: center;
       box-shadow: 0px 0px 60px rgb(10,10,10);
       background-color: rgb(20,20,20);
-  }
-
-  .card_devs {
-      align-items: center;
-      background-color: rgb(20,20,20);
-      background-image: url(https://i.postimg.cc/RVQqW9Nj/image.png);
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
   }
 
   .welcome {
@@ -191,47 +225,13 @@
     margin-right: auto;
   }
 
-  .slider_container {
-      min-height: 47vh;
-      height: auto;
-      padding: 0 10px;
-      display: flex;
-      flex-direction: column;
-      max-width: 80%;
-      align-items: center;
-      margin-left: auto;
-      margin-right: auto;  
-  }
 
-  .header_img {
-      transition: all .2s;
-      margin-right: 0;
-      margin-left: 0;
-      width: 50px;
-      height: 50px;
-  }
 
-  .header_img:hover{
-      cursor: pointer;
-      scale: 1.2;
-      margin-right: 10px;
-      margin-left: 10px;
-  }
-
-  .header_btns {
-      font-size: 16px;
-      cursor: pointer;
-      gap: 20px;
-      display: flex;
-      list-style: none;
-  }
-
-  #header_text {
-      
-      cursor: default;
-      transition: all .1s;
-      border-left: 0px solid #259073;
-      padding-left: 0px;
+  #header_text {      
+    cursor: default;
+    transition: all .1s;
+    border-left: 0px solid #259073;
+    padding-left: 0px;
   }
 
   #header_text:hover {
@@ -239,53 +239,16 @@
       padding-left: 10px;
   }
 
-  .h_cotainer {
+  .w_cotainer {
       display: flex;
+      flex-direction: row;
+      justify-content: center;
       align-items: center;
   }
 
   .title_text {
       margin-left: 10px;
       color: #259073;
-  }
-
-  .footer {
-    min-height: 250px;
-    height: auto;
-    background-color: rgb(20,20,20);
-    padding: 0 10px;
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-left: auto;
-    justify-content: space-around;
-    margin-right: auto;
-    color: antiquewhite;
-  }
-
-  .footer p {
-    margin: 10px;
-  }
-
-  .footer div{
-    border-top: 0px solid #259073;
-    transition: all .1s;
-    width: 300px;
-  }
-
-  .footer div:hover{
-      border-top: 5px solid #259073;
-  }
-
-  .under_footer {
-      height: 100px;
-      background-color: rgb(20,20,20);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: antiquewhite;
   }
 
   /* Контейнер слайдера */

@@ -4,7 +4,6 @@
 </script>
 
 <template>
-    
     <section class = 'zachem'>
         <div class = 'content'> 
             <div class="centerText">
@@ -37,19 +36,19 @@
         <div class="content">
             <div class="centerText">
                 <h2>
-                    <span style="color: #259073;"> <i>Сообщество Discord</i> - основа проекта.</span>
+                    <span style="color: #259073;"> <i>Сообщество Lenza</i> - основа проекта.</span>
                 </h2>
             </div>
             <div class = 'MainPart'>  
                 <div class="centerText">
                     <p>
-                        <span style="color: #259073;">«Сеть геймдева»</span> имеет сообщество в мессенджере «Discord». На данный момент именно оно является основой нашего проекта. <br></br><br></br>
+                        <span style="color: #259073;">«Сеть игростроя»</span> имеет сообщество в мессенджере «Lenza». На данный момент именно оно является основой нашего проекта. <br></br><br></br>
                         Для того чтобы попасть в инициативу вы должны следовать следующим инструкциям:
                         
                     </p>
                 </div>
                 <ol style="color: white">
-                    <li>Зайти на сервер «Подземная сеть геймдева».</li>
+                    <li>Зайти на сервер «Cеть игростроя».</li>
                     <li>Найти канал «Регистрация» и заполнить закреплённую там форму.</li>
                 </ol>
             </div>
@@ -62,16 +61,24 @@
             <div class="FinalPartDiv">
                 <div class="textUp">
                     <h2>
-                        <span style="color: #259073;">Сообщество Discord - основа проекта.</span>
+                        <span style="color: #259073;">Сообщество Lenza - основа проекта.</span>
                     </h2>
                     <p>
                         После одобрения заявки вам присвоят статус «Участник общего соглащения» и создадут блог разработчика на данном сервере. <br></br><br></br>
-                        При наличии у вас собственного сервера/сообщества в «Discord», ссылку на него опуюликует в канале «Наши сервера»<br></br><br></br>
+                        При наличии у вас собственного сервера/сообщества в «Lenza», ссылку на него опуюликует в канале «Наши сервера»<br></br><br></br>
                         По желанию участника мы можем так же создать отдельные странички игр и разработчика на официальном сайте инициативы(Т.е здесь).<br></br><br></br>
                     </p>
                 </div>
                 <img id="rot_img" src="https://i.postimg.cc/GhKxXhfy/image.png" width="300xp" height="300px" alt="Дискорд"></img>
             </div>
+        </div>
+    </section>
+    <section class = 'Another_Var'>
+        <h2 style="color: #259073;">Альтернативный способ</h2>
+        <p>Если у вас нет возможности зайти на сервер Lenza, можете заполнить форму ниже.</p>
+        <p>Выбор способа вступления не влияет на привилегии разработчика в инициативе</p>
+        <div class = 'center'>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSffC2aXzvPfWhRdcZPQRmzKRZu98sNPEIxtWqwPQlP-nT2Fxg/viewform?embedded=true" width="640" height="855" frameborder="0" marginheight="0" marginwidth="0">Загрузка…</iframe>
         </div>
     </section>
 
@@ -141,6 +148,15 @@
         align-items: center;
         justify-content: center;
         text-align: center;
+    }
+
+    .Another_Var {
+        background-color: rgb(20,20,20);
+        color: white;
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .FinalPart h2 {

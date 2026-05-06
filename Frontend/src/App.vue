@@ -12,10 +12,10 @@
         <div>
         <ul class = 'header_btns'>
             <li><router-link to="/catalog" class = 'SimpleBtn'>Каталог</router-link></li>
-            <li><router-link to="/about" class = 'SimpleBtn' >Сообщество</router-link></li>
+            <li><router-link to="/community" class = 'SimpleBtn' >Сообщество</router-link></li>
             <li><router-link to="/about" class = 'SimpleBtn' >О нас</router-link></li>
             <li><router-link to="/how_to_get" class = 'SimpleBtn'>Как попасть?</router-link></li>
-            <li><a class = 'SimpleBtn'>Войти</a></li>
+            <li><router-link to="/enter" class = 'SimpleBtn'>Вход</router-link></li>
         </ul>
         </div>
     </div>
@@ -37,7 +37,7 @@
       <div>
           <p>Связанное с проектом:</p>
           <p><a class = 'SimpleBtn' href="https://github.com/EgorShva5/GamedevSite" target='_blank'>Код на GitHub</a></p>
-          <p><a class = 'SimpleBtn' href="https://discord.gg/99bqS3TX4c" target='_blank'>Сообщество Discord</a></p>
+          <p><a class = 'SimpleBtn' href="https://chat.lenzaos.com/s/1U5l0w" target='_blank'>Сообщество Lenza</a></p>
           <p><a class = 'SimpleBtn' href="https://discord.gg/EKWBWEa9vA" target='_blank'>Сообщество Shvap Games</a></p>
           <p><a class = 'SimpleBtn' href="https://github.com/EgorShva5/GamedevSite" target='_blank'>Официальный сайт Shvap</a></p>
       </div>
@@ -48,7 +48,7 @@
       </div>
     </div>
     <div class="under_footer">
-        <h1>Все права защищены, Shvap Studio ©, 2025 год</h1>
+        <h1>Все права защищены, Shvap Studio ©, 2026 год</h1>
     </div>
   </footer>
 </template>

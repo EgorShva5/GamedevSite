@@ -17,3 +17,22 @@ class Banner(Base):
     linkpath = Column(Text, nullable=False)
     imgpath = Column(Text, nullable=False)
 
+class GameDeepInfo(Base):
+    __tablename__ = 'game_deep_info'
+    
+    game_id = Column(Integer, nullable = False)
+    r_bad = Column(Integer, nullable = False)
+    r_good = Column(Integer, nullable = False)
+    screens = Column(Text, nullable = False)
+    developer_id = Column(Integer, nullable = False)
+    all_rating = Column(Text, nullable = False)
+    tags = Column(Text, nullable=False)
+    info_id = Column(Integer, primary_key = True)
+
+class User(Base):
+    __tablename__ = 'users'
+    
+    user_id = Column(Integer, primary_key = True)
+    username = Column(Text, nullable = False)
+    password = Column(Text, nullable = False)
+    account_type = Column(Text, nullable = False)

@@ -60,6 +60,7 @@
       message.value='failed to get response'
     }
   }
+
     
     /*try {
         const resp = await axios.get('http://localhost:8000/Custom', {timeout: 3000})
@@ -136,8 +137,8 @@
       <div class = 'final_container'>
         <h1 class="MainHeading">На этом пока всё. Что же дальше?</h1>
         <p>В <a style="font-size: 25px;" class="SimpleBtn" href="https://google.com">этой статье</a> мы рассказали, что можно делать на сайте различным группам пользователей. Мы уверенны, она поможет вам освоиться здесь! <br>--- --- ---</p>
-        <h3>Вступайте в наше дружное Discord-сообщество!</h3>
-        <p>Здесь вы можете найти множество интересных проектов, посмотреть на блоги участников инициативы и завести множество друзей! <a style="font-size: 25px;" class="SimpleBtn" href="https://google.com" target="_blank"> Тебе стоит лишь нажать на эту ссылку.</a> Ждём тебя!</p>
+        <h3>Вступайте в наше дружное Lenza-сообщество!</h3>
+        <p>Здесь вы можете найти множество интересных проектов, посмотреть на блоги участников инициативы и завести множество друзей! <a style="font-size: 25px;" class="SimpleBtn" href="https://chat.lenzaos.com/s/1U5l0w" target="_blank"> Тебе стоит лишь нажать на эту ссылку.</a> Ждём тебя!</p>
       </div>
     </section>
 
